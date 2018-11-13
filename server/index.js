@@ -1,9 +1,16 @@
 const express = require('express');
 let app = express();
-// use getReposByUsername function
-// use save function
+const getReposByUsername = require('../helpers/github.js');
+const save = require('../database/index.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
+
+app.get('/', function (req, res) {
+  let repoTest = getReposByUsername('fhabib229');
+  console.log(repoTest);
+  console.log('test');
+  console.log('req',req.body);
+});
 
 app.post('/repos', function (req, res) {
   // TODO - your code here!

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
-db.on('error', console.error.bind(console, 'Connection error.'));
-db.once('open', function() {
-  console.log('Successfully Connected!');
-})
+// db.on('error', console.error.bind(console, 'Connection error.'));
+// db.once('open', function() {
+//   console.log('Successfully Connected!');
+// })
 
 let repoSchema = mongoose.Schema({
   id: Number,
