@@ -50,7 +50,6 @@ let findTop25Repos = (callback) => {
     if (err) {
       console.log('Error here:', err);
     } else {
-      console.log('REPOS HERE', repos);
       callback(repos);
     }
   }).sort('-stargazers_count').limit(25);

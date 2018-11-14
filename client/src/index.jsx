@@ -13,16 +13,33 @@ class App extends React.Component {
 
   }
 
-  search (term) {
-    console.log(`${term} was searched`);
+  componentDidMount() {
     $.ajax({
-      method: 'POST',
       url: '/repos',
-      data: ''
-    }).done((res) => {
-      console.log('Data was saved:', res);
+      method: 'GET',
+      success: data => {
+        this.setState({repos: data});
+        console.log('Successfully retrieved!');
+      },
+      error: () => console.log('Error in getting repos in index.jsx')
     });
   }
+
+  search (term) {
+    $.ajax({
+      url: '/repos',
+      method: 'POST',
+      contentType: 'text/plain',
+      data: term,
+      success: () => {
+        this.componentDidMount()
+        console.log('Successfully Posted');
+      },
+      error: () => console.log('Error in posting repos in index.jsx')
+    });
+  }
+
+
 
   render () {
     return (<div>

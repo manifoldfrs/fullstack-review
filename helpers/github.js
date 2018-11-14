@@ -12,10 +12,9 @@ let getReposByUsername = (username, callback) => {
 
   request(options, (err, response, body) => {
     if (err) {
-      console.log('Error:', err);
+      console.log('Error with getting Repos by Username:', err);
     } else {
       let repos = JSON.parse(body);
-      console.log('See repo', repos);
       callback(repos);
     }
   });
