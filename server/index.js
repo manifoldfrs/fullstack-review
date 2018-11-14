@@ -11,7 +11,7 @@ app.post('/repos', function (req, res) {
   helpers.getReposByUsername(req.body, (repos) => {
     repos.forEach(db.save);
   });
-  res.status(201).send('Repos successfully posted.');
+  res.status(201).send('Repos successfully saved');
 });
 
 app.get('/repos', function (req, res) {

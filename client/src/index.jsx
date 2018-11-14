@@ -19,7 +19,6 @@ class App extends React.Component {
       method: 'GET',
       success: data => {
         this.setState({repos: data});
-        console.log('Successfully retrieved!');
       },
       error: () => console.log('Error in getting repos in index.jsx')
     });
@@ -37,6 +36,7 @@ class App extends React.Component {
       },
       error: () => console.log('Error in posting repos in index.jsx')
     });
+    this.render();
   }
 
 
