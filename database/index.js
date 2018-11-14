@@ -10,97 +10,51 @@ let repoSchema = mongoose.Schema({
   id: Number,
   name: String,
   full_name: String,
-  owner: {
-    login: String,
-    id: Number,
-    avatar_url: String,
-    gravatar_id: String,
-    url: String,
-    html_url: String,
-    followers_url: String,
-    following_url: String,
-    gists_url: String,
-    starred_url: String,
-    subscriptions_url: String,
-    organizations_url: String,
-    repos_url: String,
-    events_url: String,
-    received_events_url: String,
-    type: String,
-    site_admin: Boolean
-  },
-  private: Boolean,
+  owner: String,
   html_url: String,
   description: String,
-  fork: Boolean,
-  url: String,
-  forks_url: String,
-  keys_url: String,
-  collaborators_url: String,
-  teams_url: String,
-  hooks_url: String,
-  issue_events_url: String,
-  events_url: String,
-  assignees_url: String,
-  branches_url: String,
-  tags_url: String,
-  blobs_url: String,
-  git_tags_url: String,
-  git_refs_url: String,
-  trees_url: String,
-  statuses_url: String,
-  languages_url: String,
-  stargazers_url: String,
-  contributors_url: String,
-  subscribers_url: String,
-  subscription_url: String,
-  commits_url: String,
-  git_commits_url: String,
-  comments_url: String,
-  issue_comment_url: String,
-  contents_url: String,
-  compare_url: String,
-  merges_url: String,
-  archive_url: String,
-  downloads_url: String,
-  issues_url: String,
-  pulls_url: String,
-  milestones_url: String,
-  notifications_url: String,
-  labels_url: String,
-  releases_url: String,
-  deployments_url: String,
-  created_at: Date,
-  updated_at: Date,
-  pushed_at: Date,
-  git_url: String,
-  ssh_url: String,
-  clone_url: String,
-  svn_url: String,
-  homepage: String,
-  size: Number,
+  avatar_url: String,
   stargazers_count: Number,
-  watchers_count: Number,
-  language: String,
-  has_issues: Boolean,
-  has_downloads: Boolean,
-  has_wiki: Boolean,
-  has_pages: Boolean,
   forks_count: Number,
-  mirror_url: String,
-  open_issues_count: Number,
-  forks: Number,
-  open_issues: Number,
-  watchers: Number,
-  default_branch: String
+  created_at: String,
+  updated_at: String,
+  pushed_at: String
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
-}
+let save = (repo) => {
+  let doc = new Repo ({
+    id: repo.id,
+    name: repo.name,
+    full_name: repo.full_name,
+    owner: repo.owner.login,
+    html_url: repo.html_url,
+    description: repo.description,
+    avatar_url: repo.avatar_url,
+    stargazers_count: repo.stargazers_count,
+    forks_count: repo.forks_count,
+    created_at:repo.created_at,
+    updated_at: repo.updated_at,
+    pushed_at: repo.pushed_at
+  });
+  doc.save((err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+};
+
+let findTop25Repos = (callback) => {
+  Repo.find((err, repos) => {
+    if (err) {
+      console.log('Error here:', err);
+    } else {
+      console.log('REPOS HERE', repos);
+      callback(repos);
+    }
+  }).sort('-stargazers_count').limit(25);
+};
 
 module.exports.save = save;
+module.exports.findTop25Repos = findTop25Repos;

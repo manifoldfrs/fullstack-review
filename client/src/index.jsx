@@ -18,7 +18,7 @@ class App extends React.Component {
     $.ajax({
       method: 'POST',
       url: '/repos',
-      data: {data.term}
+      data: ''
     }).done((res) => {
       console.log('Data was saved:', res);
     });

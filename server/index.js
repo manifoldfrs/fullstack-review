@@ -1,15 +1,16 @@
 const express = require('express');
 let app = express();
-const getReposByUsername = require('../helpers/github.js');
-const save = require('../database/index.js');
+const helpers = require('../helpers/github.js');
+const db = require('../database/index.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/', function (req, res) {
-  let repoTest = getReposByUsername('fhabib229');
+  let repoTest = helpers.getReposByUsername('fhabib229', (repo) => {
+    console.log(repo);
+  });
   console.log(repoTest);
-  console.log('test');
-  console.log('req',req.body);
+  console.log('test', req.body);
 });
 
 app.post('/repos', function (req, res) {
