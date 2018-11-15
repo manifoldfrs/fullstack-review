@@ -36,7 +36,6 @@ class App extends React.Component {
       },
       error: () => console.log('Error in posting repos in index.jsx')
     });
-    this.render();
   }
 
 

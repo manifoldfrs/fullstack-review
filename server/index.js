@@ -2,6 +2,7 @@ const express = require('express');
 const helpers = require('../helpers/github.js');
 const db = require('../database/index.js');
 const parse = require('body-parser');
+const reload = require('reload');
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -24,4 +25,6 @@ let port = 1128;
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
 });
+
+reload(app);
 
